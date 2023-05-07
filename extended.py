@@ -250,7 +250,20 @@ def pag_asa():
     bot(heading)
     bot(body)
 
-
+def bohol_news(): 
+    url = 'https://www.boholchronicle.com.ph/'
+    response = requests.get(url)
+    soup = BeautifulSoup(response.content, 'html.parser')
+    
+    titles = soup.find_all(class_='title')
+    bot_url = f'https://api.telegram.org/bot{bot_token}/sendMessage?chat_id={chat_id}&text=top 4 latest news on bohol chronicle' 
+    requests.get(bot_url)
+    for title in titles[1:5]:
+        message = title.text
+        bot_url = f'https://api.telegram.org/bot{bot_token}/sendMessage?chat_id={chat_id}&text={message}'
+        requests.get(bot_url)
+        
+        
 def get_philippine_time():
 
     from datetime import datetime, timedelta
